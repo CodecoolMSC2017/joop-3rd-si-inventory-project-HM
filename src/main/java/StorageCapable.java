@@ -1,10 +1,10 @@
-import java.util.List;
+import java.util.*;
 
 public interface StorageCapable {
 
-    public List<Product> getAllProduct();
+    List<Product> getAllProduct();
 
-    public void storageCDProduct(String name, int price, int tracks);
+    void storeCDProduct(String name, int price, int tracks);
 
-    public void storeBookProduct(String name, int price, int pages);
+    void storeBookProduct(String name, int price, int pages);
 }

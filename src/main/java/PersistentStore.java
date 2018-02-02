@@ -2,18 +2,12 @@
 import java.util.List;
 
 
-public class PersistentStore  {
+public class PersistentStore extends Store {
 
-    public List<Product> getAllProduct() {
-
+    @Override
+    public void storeProduct(Product product) {
+        listOfProducts.add(product);
     }
 
-    public void storeCDProduct(String name, int price, int tracks)  {
-
-    }
-
-    public void storeBookProduct(String name, int price, int pages)  {
-
-    }
 }
 
