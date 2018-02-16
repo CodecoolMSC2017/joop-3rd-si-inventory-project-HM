@@ -1,4 +1,6 @@
-public class CDProduct extends Product{
+package com.codecool;
+
+public class CDProduct extends Product {
 
     int numOfTracks;
 

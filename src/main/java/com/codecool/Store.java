@@ -1,3 +1,5 @@
+package com.codecool;
+
 import java.io.*;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -7,6 +9,11 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+
+import com.codecool.BookProduct;
+import com.codecool.CDProduct;
+import com.codecool.Product;
+import com.codecool.StorageCapable;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -20,15 +27,15 @@ import java.util.List;
 public abstract class Store implements StorageCapable {
     static File inputFile = new File("result.xml");
     static String filename = "Products.xml";
-    List<Product> listOfProducts = new ArrayList<>();
+    List<Product> productList = new ArrayList<>();
 
     public List<Product> getProducts(){
-        return listOfProducts;
+        return productList;
     }
 
     @Override
     public List<Product> getAllProduct() {
-        return listOfProducts;
+        return productList;
 
     }
 
@@ -70,14 +77,14 @@ public abstract class Store implements StorageCapable {
             DOMSource source = new DOMSource(doc);
             StreamResult result = new StreamResult(new File("Products.xml"));
 
-            Element rootElement = doc.createElement("Store");
+            Element rootElement = doc.createElement("com.codecool.Store");
             doc.appendChild(rootElement);
 
 
 
             for (int i = 0; i < getAllProduct().size() ; i++) {
                 if (getAllProduct().get(i) instanceof CDProduct) {
-                    Element product1 = doc.createElement("Product");
+                    Element product1 = doc.createElement("com.codecool.Product");
                     rootElement.appendChild(product1);
                     Attr attr = doc.createAttribute("type");
                     attr.setValue("cd");
@@ -98,7 +105,7 @@ public abstract class Store implements StorageCapable {
                     transformer.transform(source, result);
 
                 } else if (getAllProduct().get(i) instanceof BookProduct) {
-                    Element product1 = doc.createElement("Product");
+                    Element product1 = doc.createElement("com.codecool.Product");
                     rootElement.appendChild(product1);
                     Attr attr = doc.createAttribute("type");
                     attr.setValue("book");
@@ -137,7 +144,7 @@ public abstract class Store implements StorageCapable {
 
             doc.getDocumentElement().normalize();
             System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
-            NodeList nList = doc.getElementsByTagName("Product");
+            NodeList nList = doc.getElementsByTagName("com.codecool.Product");
             //System.out.println("----------------------------");
             for (int temp = 0; temp < nList.getLength(); temp++) {
                 Node nNode = nList.item(temp);
@@ -148,19 +155,19 @@ public abstract class Store implements StorageCapable {
                         Product product = new CDProduct(eElement.getElementsByTagName("name").item(0).getTextContent(),
                                 Integer.parseInt(eElement.getElementsByTagName("price").item(0).getTextContent()),
                                 Integer.parseInt(eElement.getElementsByTagName("tracks").item(0).getTextContent()));
-                        listOfProducts.add(product);
+                        productList.add(product);
                     } else if (eElement.getAttribute("type").equals("book")) {
                         Product product = new BookProduct(eElement.getElementsByTagName("name").item(0).getTextContent(),
                                 Integer.parseInt(eElement.getElementsByTagName("price").item(0).getTextContent()),
                                 Integer.parseInt(eElement.getElementsByTagName("pages").item(0).getTextContent()));
-                        listOfProducts.add(product);
+                        productList.add(product);
                     }
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return listOfProducts;
+        return productList;
     }
 
 

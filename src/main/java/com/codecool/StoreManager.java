@@ -1,3 +1,8 @@
+package com.codecool;
+
+import com.codecool.Product;
+import com.codecool.StorageCapable;
+
 import java.util.*;
 
 public class StoreManager {

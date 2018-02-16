@@ -1,3 +1,7 @@
+package com.codecool;
+
+import com.codecool.Product;
+
 import java.util.*;
 
 public interface StorageCapable {

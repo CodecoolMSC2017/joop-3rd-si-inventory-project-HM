@@ -1,12 +1,12 @@
+package com.codecool;
 
-import java.util.List;
-
+import com.codecool.Product;
 
 public class PersistentStore extends Store {
 
     @Override
     public void storeProduct(Product product) {
-        listOfProducts.add(product);
+        productList.add(product);
     }
 
 }
